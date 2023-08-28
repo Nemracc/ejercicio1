@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Formulario de Actualizacion de Producto</title>
+    <link rel="stylesheet" href="/styles/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2 class="mt-4">Actualizar Producto</h2>
+        <form class="mt-4" action="/actualizar_producto/<%=producto.id %>?_method=PUT" method="post">
+            <input name="_method" type="hidden" value="PUT">
+            <input type="text" id="id" name="id" value="<%=producto.id %>" hidden>
+
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Descripción:</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" value="<%=producto.nombre %>">
+            </div>
+
+            <div class="mb-3">
+                <label for="precio" class="form-label">Precio:</label>
+                <input type="number" class="form-control" id="precio" name="precio" step="0.01"
+                    value="<%=producto.precio %>">
+            </div>
+
+            <div class="mb-3">
+                <label for="slug" class="form-label">Slug:</label>
+                <input type="text" class="form-control" id="slug" name="slug" value="<%=producto.slug %>">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Actualizar Producto</button>
+            <button type="button" class="btn btn-danger" onclick="eliminarProducto('<%=producto.id %>')">Eliminar
+                Producto</button>
+        </form>
+    </div>
+
+
+    <script>
+        function eliminarProducto(id) {
+            fetch('/eliminar_producto/' + id, { method: 'DELETE' }).then(
+                window.location = "/bienvenida"
+            );
+        }
+    </script>
+</body>
+
+
+
+</html>

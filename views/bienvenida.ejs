@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/css/bootstrap.min.css">
+    <title>
+        <% if(titulo==="C06508" ) { %>
+            Hola Adrian
+            <% } else { %>
+                Hola desconocido
+                <% } %>
+
+    </title>
+</head>
+
+<body>
+
+    <button type="button" onclick="window.location = 'crear_producto'" class="btn btn-primary m-2">Crear nuevo
+        producto</button>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% productos.forEach((producto)=> { %>
+                <tr>
+                    <td>
+                        <%= producto.id %>
+                    </td>
+                    <td>
+                        <a href="<%='producto/' + producto.slug%>">
+                            <%= producto.nombre %>
+                        </a>
+                    </td>
+                    <td>
+                        <%= producto.precio %>
+                    </td>
+
+                    <td>
+                        <!-- <a href="<%='editar_producto/' + producto.id%>" class="btn btn-primary btn-sm me-2">Editar</a> -->
+                        <!-- <a href="<%='eliminar_producto/' + producto.id%>" class="btn btn-danger btn-sm">Eliminar</a> -->
+                        <button class="btn btn-primary btn-sm me-2"
+                            onclick="actualizarProducto('<%=producto.slug %>')">Editar</button>
+                        <button class="btn btn-danger btn-sm"
+                            onclick="eliminarProducto('<%=producto.id %>')">Eliminar</button>
+                    </td>
+
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+
+    <script>
+        function eliminarProducto(id) {
+            fetch('/eliminar_producto/' + id, { method: 'DELETE' }).then(
+                window.location = "/bienvenida"
+            );
+        }
+
+        function actualizarProducto(slug) {
+            window.location = 'producto/' + slug
+        }
+    </script>
+</body>
+
+</html>

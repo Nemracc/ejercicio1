@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Formulario de Creación de Producto</title>
+    <link rel="stylesheet" href="/styles/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2 class="mt-4">Crear Producto</h2>
+        <form class="mt-4" action="/crear_producto" method="post">
+            <input type="text" id="id" name="id" value="" hidden>
+
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Descripción:</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" value="">
+            </div>
+
+            <div class="mb-3">
+                <label for="precio" class="form-label">Precio:</label>
+                <input type="number" class="form-control" id="precio" name="precio" step="0.01" value="">
+            </div>
+
+            <!-- <div class="mb-3">
+                <label for="slug" class="form-label">Slug:</label>
+                <input type="text" class="form-control" id="slug" name="slug" value="">
+            </div> -->
+
+            <button type="submit" class="btn btn-primary">Crear Producto</button>
+        </form>
+    </div>
+</body>
+
+</html>
