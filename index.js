@@ -6,25 +6,26 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method")); // Habilitar el uso del campo "_method"
 app.use(express.static("public"));
 app.use(express.json());
+app.set("view engine", "ejs");
+app.set("views", "views");
 
 const titulo = "C065008";
 //productos nuevos
 const productos = [
   { id: 1, nombre: "Coca cola", precio: 5000.0, slug: "coca_cola" },
-  { id: 2, nombre: "Galletita", precio: 3500.5, slug: "galletita" },
+  { id: 5, nombre: "Galletita", precio: 3500.5, slug: "galletita" },
   { id: 3, nombre: "agua", precio: 10000.35, slug: "agua" },
+  
 ];
-app.set("view engine", "ejs");
-app.set("views", "views");
 
 // Petición GET
-app.get("/bienvenida", (req, res) => {
+app.get("/productos", (req, res) => {
   // res.json({ mensaje: "Hola mundo" });
   // res.send("Hola mundo");
-  res.render("bienvenida", { titulo: titulo, productos: productos });
+  res.render("productos", { titulo: titulo, productos: productos });
 });
 
-app.get("/producto/:slug", (req, res) => {
+app.get("/productos/:slug", (req, res) => {
   const p_slug = req.params.slug;
   const producto_seleccionado = productos.find(
     (producto) => producto.slug === p_slug
@@ -37,7 +38,7 @@ app.get("/crear_producto/", (req, res) => {
   res.render("crearProducto", { titulo: titulo });
 });
 
-app.put("/actualizar_producto/:id", (req, res) => {
+app.put("/productos/:id", (req, res) => {
   const p_id = req.body.id;
   console.log("Contenido", req.params.id);
   const producto_seleccionado = productos.find(
@@ -47,6 +48,7 @@ app.put("/actualizar_producto/:id", (req, res) => {
   console.log("cuerpo", req.body);
   producto_seleccionado.nombre = req.body.nombre;
   producto_seleccionado.precio = req.body.precio;
+  producto_seleccionado.slug = slugify(req.body.nombre);
   const indexToUpdate = productos.findIndex((producto) => producto.id == p_id);
 
   if (indexToUpdate !== -1) {
@@ -58,10 +60,10 @@ app.put("/actualizar_producto/:id", (req, res) => {
     console.log("No se encontró el producto con el ID especificado.");
   }
 
-  res.redirect("/bienvenida");
+  res.redirect("/productos");
 });
 
-app.delete("/eliminar_producto/:id", (req, res) => {
+app.delete("/productos/:id", (req, res) => {
   const p_id = Number(req.params.id);
   console.log("Contenido", typeof p_id, req.params.id);
   console.log("Array", typeof productos[0].id);
@@ -86,7 +88,7 @@ app.delete("/eliminar_producto/:id", (req, res) => {
   }
 });
 
-app.post("/crear_producto", (req, res) => {
+app.post("/productos", (req, res) => {
   console.log("cuerpo", req.body);
   let producto_nuevo = {
     id: 0,
@@ -107,10 +109,18 @@ app.post("/crear_producto", (req, res) => {
   console.log("nuevo id", id);
   productos.push(producto_nuevo);
 
-  res.redirect("/bienvenida");
+  res.redirect("/productos");
 });
 
-// Inicia el servidor nuevo comentario
-app.listen(3000, () => {
-  console.log("Servidor puerto 3000");
-});
+// // Inicia el servidor nuevo comentario
+// app.listen(3000, () => {
+//   console.log("Servidor puerto 3000");
+// });
+
+app.get('/productos-json', (req, res) =>{
+  res.json(productos);
+  // res.send('Hola');
+})
+
+
+module.exports = app;

@@ -35,7 +35,7 @@
                         <%= producto.id %>
                     </td>
                     <td>
-                        <a href="<%='producto/' + producto.slug%>">
+                        <a href="<%='productos/' + producto.slug%>">
                             <%= producto.nombre %>
                         </a>
                     </td>
@@ -59,13 +59,13 @@
 
     <script>
         function eliminarProducto(id) {
-            fetch('/eliminar_producto/' + id, { method: 'DELETE' }).then(
-                window.location = "/bienvenida"
+            fetch('/productos/' + id, { method: 'DELETE' }).then(
+                window.location = "/productos"
             );
         }
 
         function actualizarProducto(slug) {
-            window.location = 'producto/' + slug
+            window.location = 'productos/' + slug
         }
     </script>
 </body>

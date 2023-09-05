@@ -10,7 +10,7 @@
 
     <div class="container">
         <h2 class="mt-4">Actualizar Producto</h2>
-        <form class="mt-4" action="/actualizar_producto/<%=producto.id %>?_method=PUT" method="post">
+        <form class="mt-4" action="/productos/<%=producto.id %>?_method=PUT" method="post">
             <input name="_method" type="hidden" value="PUT">
             <input type="text" id="id" name="id" value="<%=producto.id %>" hidden>
 
@@ -39,8 +39,8 @@
 
     <script>
         function eliminarProducto(id) {
-            fetch('/eliminar_producto/' + id, { method: 'DELETE' }).then(
-                window.location = "/bienvenida"
+            fetch('/productos/' + id, { method: 'DELETE' }).then(
+                window.location = "/productos"
             );
         }
     </script>
